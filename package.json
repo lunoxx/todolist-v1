@@ -1,14 +1,13 @@
 {
   "name": "todolist-v1",
   "version": "1.0.0",
-  "description": "",
+  "description": "To do list with NodeJS and Express + TailwindCSS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "tailwind:css": "postcss public/css/source.css -o public/css/style.css --watch",
     "dev": "concurrently \"nodemon app.js\" \"postcss public/css/source.css -o public/css/style.css --watch\""
   },
-  "author": "",
+  "author": "Mesesan Alin",
   "license": "ISC",
   "dependencies": {
     "@tailwindcss/forms": "^0.5.3",
