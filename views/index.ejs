@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body class="bg-gradient-to-l from-[#86EFAC] to-[#3B82F6]">
+        <div class="flex justify-center items-center bg-transparent antialiased min-h-screen">
+
+            <div class="flex flex-col w-11/12 sm:w-5/6 lg:w-1/2 max-w-2xl mx-auto rounded-lg">
+                    
+                <% if(Messages.type) { %>
+                    <div class="animate-bounce mt-2 px-6 py-4 bg-white rounded-lg shadow w-full">
+                        <div class=" inline-flex items-center justify-between w-full">
+                            <div class="inline-flex items-center">
+                                <!-- <img src="https://cdn-icons-png.flaticon.com/512/893/893257.png" alt="Messages Icon" class="w-6 h-6 mr-3"> -->
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-3 text-red-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                                </svg>
+                                
+                                <h3 class="font-bold text-base text-gray-800">Something was happen</h3>
+                            </div>
+                            <p class="text-xs text-gray-500">
+                                Right now
+                            </p>
+                        </div>
+                        <p class="mt-1 text-sm">
+                            <%=Messages.description%>
+                        </p>
+                    </div>
+                <% } %>
+
+
+                <div class="border border-gray-300 shadow-xl my-20">
+                    <div class="flex flex-row justify-between p-6 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg">
+                        <p class="font-semibold text-gray-800">This is your current tasks list</p>
+                    </div>
+                    <div class="flex flex-col px-6 py-5 bg-gray-50">
+                        <p class="mb-2 font-semibold text-gray-700">Add new task for today:</p>
+                    
+                        <div class="relative block">
+                            <form action="/" method="post">
+            
+                                <input type="text" name="newItemName" placeholder="What you have to do?" class="p-5 bg-white border border-gray-200 rounded shadow-sm w-full">
+            
+                                <!-- Plus button -->
+                                <button type="submit" class="my-auto h-14 w-14 absolute top-0 bottom-0 right-0 pr-3 text-gray-400 hover:text-gray-600">
+                                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </button>
+                            </form>
+                        </div>
+                        <hr />
+                        <%  for(var i = 0, j = list_items.length; i < j; i ++) { %>
+                            <% if(list_items[i]) { %>
+                                <div class="mt-5 flex flex-row items-center justify-between p-5 bg-white border border-gray-200 rounded shadow-sm" >
+                                    <div class="flex flex-row items-center">
+                                        
+                                        <form action="/markFinish?id=<%=i%>" method="post">
+                                            <!-- mark checked if task is finished -->
+                                            <% if(list_items[i].finished === true) { %>
+                                                <input checked type="checkbox" name="markFinishCheck" class="focus:ring-0 focus:ring-transparent shadow border border-gray-300 h-8 w-8 mr-3 text-indigo-500 rounded-full hover:ring-2" onChange="this.form.submit()">
+                                            <% } else { %>
+                                                <input type="checkbox" name="markFinishCheck" class="animate-spin focus:ring-0 focus:ring-transparent shadow-md border border-gray-300 h-8 w-8 mr-3 text-indigo-500 rounded-full hover:ring-2" onChange="this.form.submit()">
+                                            <% } %>
+                                        </form>
+                                        
+                                        <div class="flex flex-col">
+                                            <p class="text-gray-400"><%= list_items[i].date %></p> <!-- date -->
+                                            <p class="font-semibold text-gray-800 "><%= list_items[i].description %></p> <!-- task description -->
+                                        </div>
+                                    </div>
+                                    <form action="delete?id=<%=i%>" method="post">
+                                        <button type="submit" class="animate-pulse font-semibold text-red-400">Remove</button>
+                                    </form>
+                                </div>
+                            <% } %>
+                        <% } %>
+                    </div>
+                <div class="flex flex-row items-center justify-between p-5 bg-white border-t border-gray-200 rounded-bl-lg rounded-br-lg">
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
